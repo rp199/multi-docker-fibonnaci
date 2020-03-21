@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t rp199/multi-docker-fibonnaci-client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run rp199/multi-docker-fibonnaci-client-test npm test -- --coverage
+
+after_success:
+  - docker build -t rp199/multi-docker-fibonnaci-client ./client
+  - docker build -t rp199/multi-docker-fibonnaci-nginx ./nginx
+  - docker build -t rp199/multi-docker-fibonnaci-server ./server
+  - docker build -t rp199/multi-docker-fibonnaci-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password--stdin
+  # Take those images and push them to docker hub
+  - docker build rp199/multi-docker-fibonnaci-client
+  - docker build -t rp199/multi-docker-fibonnaci-nginx
+  - docker build -t rp199/multi-docker-fibonnaci-server
+  - docker build -t rp199/multi-docker-fibonnaci-worker
