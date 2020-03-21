@@ -16,7 +16,7 @@ after_success:
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password--stdin
   # Take those images and push them to docker hub
-  - docker build rp199/multi-docker-fibonnaci-client
-  - docker build -t rp199/multi-docker-fibonnaci-nginx
-  - docker build -t rp199/multi-docker-fibonnaci-server
-  - docker build -t rp199/multi-docker-fibonnaci-worker
+  - docker push rp199/multi-docker-fibonnaci-client
+  - docker push rp199/multi-docker-fibonnaci-nginx
+  - docker push rp199/multi-docker-fibonnaci-server
+  - docker push rp199/multi-docker-fibonnaci-worker
