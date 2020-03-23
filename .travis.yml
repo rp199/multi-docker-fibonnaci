@@ -20,3 +20,15 @@ after_success:
   - docker push rp199/multi-docker-fibonnaci-nginx
   - docker push rp199/multi-docker-fibonnaci-server
   - docker push rp199/multi-docker-fibonnaci-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-west-1
+  app: multi-docker-fibonnaci
+  env: MultiDockerFibonnaci-env
+  bucket_name: elasticbeanstalk-eu-west-1-291530085812
+  bucket_path: multi-docker-fibonnaci
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
